@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-const MASTER_DEVELOPER_COOKIE = "fluxa_master_developer";
 import { SESSION_COOKIE_NAME } from "@/services/auth/constants";
+import { MASTER_DEVELOPER_COOKIE } from "@/services/developer/constants";
 
 const protectedRoutes = [
   "/dashboard",
