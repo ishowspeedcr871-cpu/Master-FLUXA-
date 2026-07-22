@@ -1,14 +1,40 @@
 "use client";
 
-import { useActionState } from "react";
-import { Terminal, ArrowRight, ShieldAlert } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Terminal, KeyRound, ArrowRight, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { developerLoginAction, type DeveloperLoginState } from "./actions";
 
 export default function DeveloperLoginPage() {
-  const initialState: DeveloperLoginState = {};
-  const [state, formAction, isPending] = useActionState(developerLoginAction, initialState);
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsPending(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    try {
+      const result = await developerLoginAction(formData);
+      if (result?.error) {
+        setError(result.error);
+        return;
+      }
+
+      if (result?.success) {
+        router.replace("/developer");
+        router.refresh();
+      }
+    } catch (err: any) {
+      setError(err?.message || "An unexpected error occurred. Please try again.");
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#020203] text-white flex items-center justify-center p-4 md:p-6 relative overflow-x-hidden font-sans select-none w-full">

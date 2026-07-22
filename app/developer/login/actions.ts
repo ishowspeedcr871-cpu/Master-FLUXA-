@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { authenticateMasterDeveloper } from "@/services/developer/master-auth";
 
 export type DeveloperLoginState = {
