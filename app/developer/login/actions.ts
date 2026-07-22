@@ -1,7 +1,6 @@
 "use server";
 
 import { authenticateMasterDeveloper } from "@/services/developer/master-auth";
-import { redirect } from "next/navigation";
 
 export async function developerLoginAction(formData: FormData) {
   const masterId = formData.get("masterId") as string;
@@ -13,9 +12,9 @@ export async function developerLoginAction(formData: FormData) {
 
   const success = await authenticateMasterDeveloper({ masterId, password });
 
-  if (success) {
-    redirect("/developer");
-  } else {
+  if (!success) {
     return { error: "Invalid Master ID or Password" };
   }
+
+  return { success: true };
 }

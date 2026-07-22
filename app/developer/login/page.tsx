@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Terminal, KeyRound, ArrowRight, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { developerLoginAction } from "./actions";
 
 export default function DeveloperLoginPage() {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
 
@@ -18,8 +20,14 @@ export default function DeveloperLoginPage() {
     const formData = new FormData(e.currentTarget);
     try {
       const result = await developerLoginAction(formData);
-      if (result && result.error) {
+      if (result?.error) {
         setError(result.error);
+        return;
+      }
+
+      if (result?.success) {
+        router.replace("/developer");
+        router.refresh();
       }
     } catch (err: any) {
       setError(err?.message || "An unexpected error occurred. Please try again.");
@@ -53,7 +61,8 @@ export default function DeveloperLoginPage() {
               <span>Master Developer Portal</span>
             </h2>
             <p className="text-xs text-muted-foreground mt-2 max-w-[280px]">
-              Authenticate using your master credentials to access internal tools, audit logs, and organization services.
+              Authenticate using your master credentials to access internal tools, audit logs, and
+              organization services.
             </p>
           </div>
 
