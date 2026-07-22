@@ -2,9 +2,11 @@ import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
 import { DeveloperSecretsClient } from "@/components/developer/developer-secrets-client";
 import { prisma } from "@/database/client";
 
+export const dynamic = "force-dynamic";
+
 export default async function DeveloperSecretsPage() {
   const dbSettings = await prisma.platformSettings.findMany({
-    orderBy: { key: "asc" }
+    orderBy: { key: "asc" },
   });
 
   // Get relevant system environment variables
@@ -17,23 +19,20 @@ export default async function DeveloperSecretsPage() {
     "GOOGLE_CLIENT_SECRET",
     "RESEND_API_KEY",
     "UPSTASH_REDIS_REST_URL",
-    "UPSTASH_REDIS_REST_TOKEN"
+    "UPSTASH_REDIS_REST_TOKEN",
   ];
 
   const systemSecrets = systemKeys
-    .filter(key => process.env[key])
-    .map(key => ({
+    .filter((key) => process.env[key])
+    .map((key) => ({
       key,
       value: process.env[key],
-      isSystem: true
+      isSystem: true,
     }));
 
   return (
     <DeveloperPortalLayout>
-      <DeveloperSecretsClient 
-        initialSettings={dbSettings} 
-        systemSecrets={systemSecrets}
-      />
+      <DeveloperSecretsClient initialSettings={dbSettings} systemSecrets={systemSecrets} />
     </DeveloperPortalLayout>
   );
 }

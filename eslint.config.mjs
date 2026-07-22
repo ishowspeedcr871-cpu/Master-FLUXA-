@@ -1,32 +1,28 @@
-import nextPlugin from "@next/eslint-plugin-next";
-import tsParser from "@typescript-eslint/parser";
-import reactPlugin from "eslint-plugin-react";
-import reactHooksPlugin from "eslint-plugin-react-hooks";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { FlatCompat } from "@eslint/eslintrc";
 
-export default [
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const eslintConfig = [
   {
     ignores: [".next/**", "node_modules/**", "dist/**", "build/**", "out/**", "coverage/**"],
   },
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        ecmaFeatures: { jsx: true },
-      },
-    },
-    plugins: {
-      "@next/next": nextPlugin,
-      react: reactPlugin,
-      "react-hooks": reactHooksPlugin,
-    },
-    settings: { react: { version: "detect" } },
     rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/triple-slash-reference": "off",
+      "react/no-unescaped-entities": "off",
+      "prefer-const": "off",
     },
   },
 ];
+
+export default eslintConfig;

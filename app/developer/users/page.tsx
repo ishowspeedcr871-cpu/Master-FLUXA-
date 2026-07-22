@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Table, Td, Th } from "@/components/ui/table";
 import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
-import { 
+import {
   listPlatformUsers,
   setUserStatusAction,
   deleteUserAction,
 } from "@/services/developer/platform-service";
+
+export const dynamic = "force-dynamic";
 
 export default async function Page({
   searchParams,
@@ -23,7 +25,8 @@ export default async function Page({
           <CardHeader>
             <CardTitle>Platform-wide users</CardTitle>
             <CardDescription>
-              Search every account across all tenants and platform roles. Manage login statuses (Pause/Resume) or Delete users immediately.
+              Search every account across all tenants and platform roles. Manage login statuses
+              (Pause/Resume) or Delete users immediately.
             </CardDescription>
           </CardHeader>
           <CardContent>

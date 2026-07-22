@@ -23,5 +23,5 @@ export async function developerLoginAction(
     return { error: "Invalid Master ID or Password" };
   }
 
-  return { success: true };
+  redirect("/developer/dashboard");
 }

@@ -12,6 +12,8 @@ import {
   deleteOrganizationAction,
 } from "@/services/developer/platform-service";
 
+export const dynamic = "force-dynamic";
+
 export default async function DeveloperOrganizationsPage({
   searchParams,
 }: {

@@ -3,6 +3,8 @@ import { Table, Td, Th } from "@/components/ui/table";
 import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
 import { getSystemHealth } from "@/services/developer/platform-service";
 
+export const dynamic = "force-dynamic";
+
 export default async function DeveloperJobsPage() {
   const health = await getSystemHealth();
   const jobs = [

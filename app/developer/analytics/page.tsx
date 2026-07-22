@@ -5,6 +5,8 @@ import { getPlatformAnalytics } from "@/services/analytics/analytics-service";
 import { requireMasterDeveloper } from "@/services/developer/platform-authorization";
 import { formatBytes } from "@/utils/format";
 
+export const dynamic = "force-dynamic";
+
 export default async function DeveloperAnalyticsPage() {
   await requireMasterDeveloper();
   const analytics = await getPlatformAnalytics();

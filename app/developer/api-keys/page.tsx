@@ -8,6 +8,8 @@ import {
   getGlobalSettings,
 } from "@/services/developer/platform-service";
 
+export const dynamic = "force-dynamic";
+
 export default async function DeveloperApiKeysPage() {
   const settings = (await getGlobalSettings()).filter((setting) =>
     setting.key.startsWith("api_key_foundation."),

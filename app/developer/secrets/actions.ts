@@ -7,7 +7,7 @@ export async function upsertSecret(key: string, value: string) {
   await prisma.platformSettings.upsert({
     where: { key },
     update: { value },
-    create: { key, value }
+    create: { key, value },
   });
 
   revalidatePath("/developer/secrets");
@@ -16,7 +16,7 @@ export async function upsertSecret(key: string, value: string) {
 
 export async function deleteSecret(key: string) {
   await prisma.platformSettings.delete({
-    where: { key }
+    where: { key },
   });
 
   revalidatePath("/developer/secrets");
