@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Terminal, KeyRound, ArrowRight, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { developerLoginAction } from "./actions";
+import { developerLoginAction, type DeveloperLoginState } from "./actions";
 
 export default function DeveloperLoginPage() {
   const router = useRouter();
@@ -66,7 +66,7 @@ export default function DeveloperLoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="w-full space-y-4">
+          <form action={formAction} className="w-full space-y-4">
             <div className="space-y-4">
               <div className="relative">
                 <Input
@@ -91,10 +91,10 @@ export default function DeveloperLoginPage() {
             </div>
 
             {/* Error Message */}
-            {error && (
+            {state.error && (
               <div className="flex items-start gap-2 text-xs text-[#f87171] bg-[#f87171]/5 border border-[#f87171]/20 p-3 rounded-xl w-full">
                 <ShieldAlert className="size-4 shrink-0 mt-0.5" />
-                <p className="font-medium leading-relaxed">{error}</p>
+                <p className="font-medium leading-relaxed">{state.error}</p>
               </div>
             )}
 

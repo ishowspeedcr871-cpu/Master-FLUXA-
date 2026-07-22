@@ -1,13 +1,5 @@
-import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
-import { getPlatformDashboard } from "@/services/developer/platform-service";
-import { MasterDashboardClient } from "@/components/developer/master-dashboard-client";
+import { redirect } from "next/navigation";
 
-export default async function DeveloperDashboardPage() {
-  const data = await getPlatformDashboard();
-  
-  return (
-    <DeveloperPortalLayout>
-      <MasterDashboardClient data={data} />
-    </DeveloperPortalLayout>
-  );
+export default function DeveloperIndexPage() {
+  redirect("/developer/dashboard");
 }
