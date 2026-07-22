@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { authenticateMasterDeveloper } from "@/services/developer/master-auth";
 
 export type DeveloperLoginState = {
@@ -24,5 +23,5 @@ export async function developerLoginAction(
     return { error: "Invalid Master ID or Password" };
   }
 
-  redirect("/developer/dashboard");
+  return { success: true };
 }
