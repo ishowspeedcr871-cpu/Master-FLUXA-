@@ -7,6 +7,8 @@ import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
 import { getPlatformStorage } from "@/services/developer/platform-service";
 import { MetricCard } from "@/components/ui/metric-card";
 import { formatBytes } from "@/utils/format";
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const data = await getPlatformStorage();
   return (

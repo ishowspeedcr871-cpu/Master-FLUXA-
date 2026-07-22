@@ -6,6 +6,8 @@ import { Table, Td, Th } from "@/components/ui/table";
 import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
 import { getSystemHealth } from "@/services/developer/platform-service";
 import { MetricCard } from "@/components/ui/metric-card";
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   const h = await getSystemHealth();
   return (

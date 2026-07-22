@@ -5,6 +5,8 @@ import { Select } from "@/components/ui/select";
 import { Table, Td, Th } from "@/components/ui/table";
 import { DeveloperPortalLayout } from "@/layouts/developer-portal-layout";
 import { globalSearch } from "@/services/developer/platform-service";
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   searchParams,
 }: {

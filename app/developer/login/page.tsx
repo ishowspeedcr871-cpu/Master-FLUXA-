@@ -1,32 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { Terminal, KeyRound, ArrowRight, ShieldAlert } from "lucide-react";
+import { useActionState } from "react";
+import { Terminal, ArrowRight, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { developerLoginAction } from "./actions";
+import { developerLoginAction, type DeveloperLoginState } from "./actions";
 
 export default function DeveloperLoginPage() {
-  const [error, setError] = useState<string | null>(null);
-  const [isPending, setIsPending] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsPending(true);
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
-    try {
-      const result = await developerLoginAction(formData);
-      if (result && result.error) {
-        setError(result.error);
-      }
-    } catch (err: any) {
-      setError(err?.message || "An unexpected error occurred. Please try again.");
-    } finally {
-      setIsPending(false);
-    }
-  };
+  const initialState: DeveloperLoginState = {};
+  const [state, formAction, isPending] = useActionState(developerLoginAction, initialState);
 
   return (
     <div className="min-h-screen bg-[#020203] text-white flex items-center justify-center p-4 md:p-6 relative overflow-x-hidden font-sans select-none w-full">
@@ -53,11 +35,12 @@ export default function DeveloperLoginPage() {
               <span>Master Developer Portal</span>
             </h2>
             <p className="text-xs text-muted-foreground mt-2 max-w-[280px]">
-              Authenticate using your master credentials to access internal tools, audit logs, and organization services.
+              Authenticate using your master credentials to access internal tools, audit logs, and
+              organization services.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="w-full space-y-4">
+          <form action={formAction} className="w-full space-y-4">
             <div className="space-y-4">
               <div className="relative">
                 <Input
@@ -82,10 +65,10 @@ export default function DeveloperLoginPage() {
             </div>
 
             {/* Error Message */}
-            {error && (
+            {state.error && (
               <div className="flex items-start gap-2 text-xs text-[#f87171] bg-[#f87171]/5 border border-[#f87171]/20 p-3 rounded-xl w-full">
                 <ShieldAlert className="size-4 shrink-0 mt-0.5" />
-                <p className="font-medium leading-relaxed">{error}</p>
+                <p className="font-medium leading-relaxed">{state.error}</p>
               </div>
             )}
 
